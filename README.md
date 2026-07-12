@@ -1,6 +1,6 @@
 # TrainRouter Atlas — the world's legendary train routes, as open data
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21322031.svg)](https://doi.org/10.5281/zenodo.21322031)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21322030.svg)](https://doi.org/10.5281/zenodo.21322030)
 
 **744 train routes · 118 countries · ≈ 366,500 km of line** — every route with its key facts and hand-traced geometry, from [trainrouter.com](https://trainrouter.com), the interactive world railway map.
 
@@ -64,11 +64,11 @@ gdf.plot(column="category", figsize=(16, 8))
 
 - **Kaggle:** [kaggle.com/datasets/albanius/world-train-routes-trainrouter-atlas](https://www.kaggle.com/datasets/albanius/world-train-routes-trainrouter-atlas)
 - **Hugging Face:** [huggingface.co/datasets/Flightmussy/trainrouter-atlas](https://huggingface.co/datasets/Flightmussy/trainrouter-atlas)
-- **Zenodo (archived, DOI):** [doi.org/10.5281/zenodo.21322031](https://doi.org/10.5281/zenodo.21322031)
+- **Zenodo (archived, DOI):** [doi.org/10.5281/zenodo.21322030](https://doi.org/10.5281/zenodo.21322030) — always resolves to the latest version
 
 ## Citing
 
-> TrainRouter Atlas: the world's legendary train routes (2026). trainrouter.com. DOI: 10.5281/zenodo.21322031. https://github.com/Flightmussy/trainrouter-atlas
+> TrainRouter Atlas: the world's legendary train routes (2026). trainrouter.com. DOI: 10.5281/zenodo.21322030. https://github.com/Flightmussy/trainrouter-atlas
 
 ## Updating
 
