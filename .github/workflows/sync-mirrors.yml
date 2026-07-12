@@ -44,7 +44,8 @@ jobs:
           set -e
           echo "$OUT"
           # First run on a fresh slug: bootstrap the dataset (public) instead.
-          if echo "$OUT" | grep -qiE "not found|404"; then
+          # (Kaggle answers 403 Forbidden — not 404 — for missing/deleted slugs.)
+          if echo "$OUT" | grep -qiE "not found|404|403|forbidden"; then
             echo "Dataset not found — creating it (public)."
             OUT=$(kaggle datasets create -p ds -u 2>&1)
             echo "$OUT"
