@@ -51,7 +51,9 @@ jobs:
             echo "$OUT"
           fi
           # The kaggle CLI exits 0 even on server-side errors — fail loudly.
-          if echo "$OUT" | grep -qi "error"; then
+          # ("Error while trying to load upload info" is a known benign CLI
+          #  warning on newer server responses; uploads still succeed.)
+          if echo "$OUT" | grep -vi "load upload info" | grep -qi "error"; then
             echo "::error::Kaggle push failed (see output above)"
             exit 1
           fi
