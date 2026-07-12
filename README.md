@@ -1,5 +1,7 @@
 # TrainRouter Atlas — the world's legendary train routes, as open data
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21322031.svg)](https://doi.org/10.5281/zenodo.21322031)
+
 **744 train routes · 118 countries · ≈ 366,500 km of line** — every route with its key facts and hand-traced geometry, from [trainrouter.com](https://trainrouter.com), the interactive world railway map.
 
 High-speed spines (Eurostar, TGV, Shinkansen, AVE), classic long-distance runs (Trans-Siberian, California Zephyr), night trains (Nightjet, the Ghan) and the scenic lines people fly in just to ride (Glacier Express, Bernina Express, the Jacobite).
@@ -58,9 +60,15 @@ gdf.plot(column="category", figsize=(16, 8))
 
 [**CC BY 4.0**](https://creativecommons.org/licenses/by/4.0/) — free to use, share and adapt, **with attribution to [TrainRouter](https://trainrouter.com)**. A link to `https://trainrouter.com` (or the specific route page in `url`) satisfies attribution.
 
+## Also available on
+
+- **Kaggle:** [kaggle.com/datasets/albanius/world-train-routes-trainrouter-atlas](https://www.kaggle.com/datasets/albanius/world-train-routes-trainrouter-atlas)
+- **Hugging Face:** [huggingface.co/datasets/Flightmussy/trainrouter-atlas](https://huggingface.co/datasets/Flightmussy/trainrouter-atlas)
+- **Zenodo (archived, DOI):** [doi.org/10.5281/zenodo.21322031](https://doi.org/10.5281/zenodo.21322031)
+
 ## Citing
 
-> TrainRouter Atlas: the world's legendary train routes (2026). trainrouter.com. https://github.com/Flightmussy/trainrouter-atlas
+> TrainRouter Atlas: the world's legendary train routes (2026). trainrouter.com. DOI: 10.5281/zenodo.21322031. https://github.com/Flightmussy/trainrouter-atlas
 
 ## Also in this repo
 
