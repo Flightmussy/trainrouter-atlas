@@ -5,8 +5,9 @@
 # hand from the Actions tab (workflow_dispatch).
 #
 # INERT until two secrets exist (Settings → Secrets and variables → Actions):
-#   KAGGLE_USERNAME + KAGGLE_KEY   from kaggle.com/settings → "Create New Token"
-#   HF_TOKEN                       from huggingface.co/settings/tokens (write)
+#   KAGGLE_API_TOKEN   from kaggle.com/settings/api → "Generate New Token"
+#                      (the new KGAT_… tokens; identity is embedded, no username)
+#   HF_TOKEN           from huggingface.co/settings/tokens (write scope)
 # Each job skips itself politely when its secret is missing.
 
 name: Sync mirrors
@@ -26,11 +27,10 @@ jobs:
           python-version: '3.12'
       - name: Push a new Kaggle dataset version
         env:
-          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
-          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
         run: |
-          if [ -z "$KAGGLE_KEY" ]; then echo "No KAGGLE_KEY secret — skipping Kaggle sync."; exit 0; fi
-          pip -q install kaggle
+          if [ -z "$KAGGLE_API_TOKEN" ]; then echo "No KAGGLE_API_TOKEN secret — skipping Kaggle sync."; exit 0; fi
+          pip -q install 'kaggle>=1.8'
           mkdir -p ds && cp data/routes.csv data/routes.json data/routes.geojson ds/
           printf '{ "id": "albanius/world-train-routes-trainrouter-atlas" }\n' > ds/dataset-metadata.json
           kaggle datasets version -p ds -m "Sync from GitHub ${GITHUB_REF_NAME:-manual}"

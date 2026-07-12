@@ -72,7 +72,7 @@ gdf.plot(column="category", figsize=(16, 8))
 
 ## Updating
 
-The data is generated from the TrainRouter atlas source. New versions land here first; publishing a GitHub release mints a fresh Zenodo DOI and (once the repo's `KAGGLE_*`/`HF_TOKEN` secrets are configured) syncs the [Kaggle](https://www.kaggle.com/datasets/albanius/world-train-routes-trainrouter-atlas) and [Hugging Face](https://huggingface.co/datasets/Flightmussy/trainrouter-atlas) mirrors automatically via [`sync-mirrors.yml`](.github/workflows/sync-mirrors.yml).
+The data is generated from the TrainRouter atlas source. New versions land here first; publishing a GitHub release mints a fresh Zenodo DOI and (once the repo's `KAGGLE_API_TOKEN`/`HF_TOKEN` secrets are configured) syncs the [Kaggle](https://www.kaggle.com/datasets/albanius/world-train-routes-trainrouter-atlas) and [Hugging Face](https://huggingface.co/datasets/Flightmussy/trainrouter-atlas) mirrors automatically via [`sync-mirrors.yml`](.github/workflows/sync-mirrors.yml).
 
 ## Also in this repo
 
