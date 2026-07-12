@@ -1,0 +1,65 @@
+# Sync the Kaggle and Hugging Face mirrors from this repo.
+#
+# Runs when a GitHub release is published (which is also what makes Zenodo
+# mint a new DOI) — so one release = DOI + both mirrors. Can also be run by
+# hand from the Actions tab (workflow_dispatch).
+#
+# INERT until two secrets exist (Settings → Secrets and variables → Actions):
+#   KAGGLE_USERNAME + KAGGLE_KEY   from kaggle.com/settings → "Create New Token"
+#   HF_TOKEN                       from huggingface.co/settings/tokens (write)
+# Each job skips itself politely when its secret is missing.
+
+name: Sync mirrors
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  kaggle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Push a new Kaggle dataset version
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+        run: |
+          if [ -z "$KAGGLE_KEY" ]; then echo "No KAGGLE_KEY secret — skipping Kaggle sync."; exit 0; fi
+          pip -q install kaggle
+          mkdir -p ds && cp data/routes.csv data/routes.json data/routes.geojson ds/
+          printf '{ "id": "albanius/world-train-routes-trainrouter-atlas" }\n' > ds/dataset-metadata.json
+          kaggle datasets version -p ds -m "Sync from GitHub ${GITHUB_REF_NAME:-manual}"
+
+  huggingface:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Push files to the Hugging Face dataset
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then echo "No HF_TOKEN secret — skipping Hugging Face sync."; exit 0; fi
+          pip -q install huggingface_hub
+          python - <<'EOF'
+          import os
+          from huggingface_hub import HfApi
+          api = HfApi(token=os.environ["HF_TOKEN"])
+          msg = f"Sync from GitHub {os.environ.get('GITHUB_REF_NAME', 'manual')}"
+          for name in ["routes.csv", "routes.json", "routes.geojson"]:
+              api.upload_file(
+                  path_or_fileobj=f"data/{name}",
+                  path_in_repo=name,
+                  repo_id="Flightmussy/trainrouter-atlas",
+                  repo_type="dataset",
+                  commit_message=msg,
+              )
+          print("uploaded 3 files:", msg)
+          EOF

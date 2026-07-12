@@ -70,6 +70,10 @@ gdf.plot(column="category", figsize=(16, 8))
 
 > TrainRouter Atlas: the world's legendary train routes (2026). trainrouter.com. DOI: 10.5281/zenodo.21322031. https://github.com/Flightmussy/trainrouter-atlas
 
+## Updating
+
+The data is generated from the TrainRouter atlas source. New versions land here first; publishing a GitHub release mints a fresh Zenodo DOI and (once the repo's `KAGGLE_*`/`HF_TOKEN` secrets are configured) syncs the [Kaggle](https://www.kaggle.com/datasets/albanius/world-train-routes-trainrouter-atlas) and [Hugging Face](https://huggingface.co/datasets/Flightmussy/trainrouter-atlas) mirrors automatically via [`sync-mirrors.yml`](.github/workflows/sync-mirrors.yml).
+
 ## Also in this repo
 
 - [`mcp/`](mcp/) — source of the TrainRouter MCP server (live at `https://trainrouter.com/mcp`, listed in the [Official MCP Registry](https://registry.modelcontextprotocol.io) as `com.trainrouter/atlas`), which serves this atlas as tools for Claude and other MCP clients.
