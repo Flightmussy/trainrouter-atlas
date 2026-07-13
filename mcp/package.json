@@ -1,7 +1,7 @@
 {
   "name": "trainrouter-mcp",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "TrainRouter MCP server — the world railway atlas (744+ legendary train routes) as read-only MCP tools. Remote endpoint: https://trainrouter.com/mcp",
   "type": "module",
   "main": "server.mjs",

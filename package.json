@@ -1,0 +1,23 @@
+{
+  "name": "trainrouter-atlas",
+  "version": "1.0.3",
+  "description": "The world railway atlas as open data (CC BY 4.0) + MCP server — 744 legendary train routes with facts and geometry, from trainrouter.com. Hosted MCP endpoint: https://trainrouter.com/mcp",
+  "type": "module",
+  "main": "mcp/server.mjs",
+  "scripts": {
+    "start": "node mcp/server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "CC-BY-4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Flightmussy/trainrouter-atlas.git"
+  },
+  "homepage": "https://trainrouter.com/mcp-server/",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.25.0"
+  }
+}

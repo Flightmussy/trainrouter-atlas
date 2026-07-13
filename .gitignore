@@ -1,0 +1,4 @@
+node_modules/
+# deploy-time snapshot of the hosted server — never in the public repo
+# (the server derives its data from data/routes.json when this is absent)
+mcp/data.json

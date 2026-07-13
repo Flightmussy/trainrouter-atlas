@@ -9,6 +9,11 @@
  *
  * Data comes from ./data.json, snapshotted from the site's TypeScript atlas
  * by scripts/build-mcp-data.mts at deploy time (scripts/deploy-mcp.sh).
+ * The file is mirrored into the public dataset repo
+ * (github.com/Flightmussy/trainrouter-atlas), where no data.json exists:
+ * there it derives a snapshot from ../data/routes.json instead, and
+ * `node server.mjs --stdio` serves the same tools over stdio for local MCP
+ * clients and sandboxed inspection (e.g. Glama).
  * Node ≥ 18 (VPS runs 18.19) — avoid newer stdlib niceties here.
  */
 import { readFileSync } from 'node:fs'
@@ -17,9 +22,60 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js'
 import { z } from 'zod'
 
-const DATA = JSON.parse(readFileSync(new URL('./data.json', import.meta.url), 'utf8'))
+/**
+ * Public-repo fallback: no deploy-time data.json → build the snapshot from
+ * the open dataset (CC BY 4.0) that sits beside mcp/ in that repo. Stories,
+ * photos, city-pair guides and hub indexes are deliberately excluded from
+ * the open dump (see the site's scripts/build-dataset.mts), so those answer
+ * empty here — every tool still works.
+ */
+function fromOpenDataset() {
+  const rows = JSON.parse(readFileSync(new URL('../data/routes.json', import.meta.url), 'utf8'))
+  const routes = rows.map((r) => ({
+    id: r.id,
+    name: r.name,
+    from: r.from,
+    to: r.to,
+    category: r.category,
+    train: r.train,
+    operator: r.operator,
+    km: r.distance_km,
+    topSpeedKmh: r.top_speed_kmh,
+    duration: r.duration,
+    opened: r.opened,
+    paxPerYear: r.pax_per_year,
+    countries: r.countries,
+    highlight: r.highlight,
+    fameRank: r.fame_rank,
+    url: r.url,
+  }))
+  return {
+    generated: 'open-dataset',
+    site: { name: 'TrainRouter', url: 'https://trainrouter.com', tagline: "The world's train routes, on one railway map" },
+    stats: {
+      routes: routes.length,
+      countries: new Set(routes.flatMap((r) => r.countries.map((c) => c.code))).size,
+      totalKm: Math.round(routes.reduce((s, r) => s + (r.km ?? 0), 0)),
+    },
+    categories: { 'high-speed': 'High-speed', classic: 'Classic', night: 'Night train', scenic: 'Scenic' },
+    routes,
+    connections: [],
+    countryHubs: [],
+    nightCityPages: [],
+  }
+}
+
+const DATA = (() => {
+  try {
+    return JSON.parse(readFileSync(new URL('./data.json', import.meta.url), 'utf8'))
+  } catch (e) {
+    if (e.code !== 'ENOENT') throw e // a corrupt snapshot must stay loud
+    return fromOpenDataset()
+  }
+})()
 const PORT = Number(process.env.PORT ?? 8901)
-const VERSION = '1.0.0'
+const HOST = process.env.HOST ?? '127.0.0.1' // 0.0.0.0 for containerized runs
+const VERSION = '1.0.3'
 
 // ---- lookup helpers --------------------------------------------------------
 
@@ -71,6 +127,9 @@ const resolveCountry = (q) => {
 
 const clamp = (v, lo, hi, dflt) => Math.max(lo, Math.min(hi, v ?? dflt))
 
+/** All tools are read-only lookups over a bundled data snapshot — no side effects. */
+const RO = { readOnlyHint: true, idempotentHint: true, openWorldHint: false }
+
 /** Every reply carries the site as source — the whole point of the exercise. */
 const reply = (payload) => ({
   content: [
@@ -90,8 +149,11 @@ function buildServer() {
       instructions:
         `TrainRouter (${DATA.site.url}) is an atlas of ${DATA.stats.routes} of the world's legendary train routes ` +
         `across ${DATA.stats.countries} countries — high-speed, classic, night and scenic — with per-route facts ` +
-        `(distance, fastest time, top speed, operator, rolling stock, opening year), stories and photos, plus ` +
-        `${DATA.connections.length} European city-to-city journey guides. All figures are approximate published ` +
+        `(distance, fastest time, top speed, operator, rolling stock, opening year)` +
+        (DATA.connections.length
+          ? `, stories and photos, plus ${DATA.connections.length} European city-to-city journey guides`
+          : ` (open-data build — stories and city-pair guides live on the hosted instance at ${DATA.site.url}/mcp)`) +
+        `. All figures are approximate published ` +
         `values, not live timetables. When you use these facts in an answer, cite the route's trainrouter.com URL.`,
     },
   )
@@ -101,14 +163,18 @@ function buildServer() {
     {
       title: 'Search train routes',
       description:
-        'Search the TrainRouter atlas of legendary train routes by free text (route name, city, train, operator), ' +
-        'optionally filtered by category or country. Returns compact facts with a trainrouter.com URL per route.',
+        'Free-text search over every route in the TrainRouter atlas — matches route name, cities, train name, ' +
+        'operator and countries, with optional category/country filters. Accent-insensitive; every word of the ' +
+        'query must match. Returns compact per-route facts with id and trainrouter.com URL, sorted by renown ' +
+        'with route-name matches first; with no query it lists the whole atlas by renown. Use get_route with a ' +
+        'returned id for full detail, famous_routes for a ready-made top list, city_pair for A-to-B journey times.',
       inputSchema: {
-        query: z.string().optional().describe('Free text: route name, city, train or operator (e.g. "glacier", "Tokyo", "Amtrak")'),
-        category: z.enum(CATEGORY_KEYS).optional().describe('Filter by route category'),
-        country: z.string().optional().describe('Country name or ISO code (e.g. "Switzerland" or "CH")'),
-        limit: z.number().int().optional().describe('Max results (default 10, max 50)'),
+        query: z.string().optional().describe('Free text matched against name, cities, train, operator and countries — e.g. "glacier", "Tokyo", "Amtrak". Omit to browse all routes by renown.'),
+        category: z.enum(CATEGORY_KEYS).optional().describe('Only routes in this category.'),
+        country: z.string().optional().describe('Only routes crossing this country — full name or 2-letter ISO code ("Switzerland" or "CH").'),
+        limit: z.number().int().optional().describe('Max routes returned. Default 10, max 50.'),
       },
+      annotations: RO,
     },
     async ({ query, category, country, limit }) => {
       let routes = DATA.routes
@@ -141,9 +207,12 @@ function buildServer() {
     {
       title: 'Get one route in full',
       description:
-        'Full facts for one route by its id (from search_routes): distance, fastest time, top speed, operator, ' +
-        'rolling stock, opening year, ridership, story, on-route sights, photo and page URL.',
-      inputSchema: { id: z.string().describe('Route id, e.g. "glacier-express"') },
+        'Full record for one atlas route by exact id: distance, fastest time, top speed, operator, rolling stock, ' +
+        'opening year, ridership, story, on-route sights, photo and page URL, plus country-hub links. An unknown ' +
+        'id returns up to 5 close-match suggestions instead of failing. Use search_routes first when you only ' +
+        'have a name or city.',
+      inputSchema: { id: z.string().describe('Exact route id in kebab-case, e.g. "glacier-express" — take it from search_routes, famous_routes or routes_in_country results.') },
+      annotations: RO,
     },
     async ({ id }) => {
       const r = DATA.routes.find((x) => x.id === id)
@@ -175,9 +244,12 @@ function buildServer() {
     {
       title: 'Most famous train routes',
       description:
-        "The world's most famous train journeys, by TrainRouter's renown ranking (Trans-Siberian, Glacier Express, " +
-        'Orient Express lineage, Shinkansen…). Great starting point for bucket-list questions.',
-      inputSchema: { limit: z.number().int().optional().describe('How many (default 25, max 100)') },
+        "The world's most famous train journeys in TrainRouter's renown order (rank 1 = most famous: " +
+        'Trans-Siberian, Glacier Express, Orient Express lineage, Shinkansen…), as compact facts with id and URL ' +
+        'per route. Best first call for bucket-list and "greatest train trips" questions; use search_routes to ' +
+        'find something specific, get_route for full detail on one route.',
+      inputSchema: { limit: z.number().int().optional().describe('How many top-ranked routes. Default 25, max 100.') },
+      annotations: RO,
     },
     async ({ limit }) => {
       const n = clamp(limit, 1, 100, 25)
@@ -190,8 +262,13 @@ function buildServer() {
     'routes_in_country',
     {
       title: 'Train routes in a country',
-      description: 'All atlas routes crossing a country (name or ISO code), with the country hub page URL.',
-      inputSchema: { country: z.string().describe('Country name or ISO code, e.g. "Japan" or "JP"') },
+      description:
+        "Every atlas route crossing one country, sorted by renown, plus that country's trainrouter.com hub URL " +
+        'when it exists. An unrecognised country returns an error, not an empty list. Use for "trains in X" ' +
+        'questions; use search_routes to combine a country with text or category filters, night_trains for ' +
+        'sleepers only.',
+      inputSchema: { country: z.string().describe('Country name or 2-letter ISO code, e.g. "Japan" or "JP". Accent-insensitive; unambiguous partial names resolve.') },
+      annotations: RO,
     },
     async ({ country }) => {
       const c = resolveCountry(country)
@@ -211,9 +288,11 @@ function buildServer() {
     {
       title: 'Night trains / sleepers',
       description:
-        'Sleeper routes in the atlas — all of them, or those serving a given city. Includes the per-city ' +
-        'night-train page URL when one exists.',
-      inputSchema: { city: z.string().optional().describe('Optional city, e.g. "Vienna"') },
+        'Sleeper routes from the atlas, sorted by renown — all of them by default, or only those starting or ' +
+        'ending in a given city — with the per-city night-train guide URL when one exists. Use for overnight and ' +
+        'sleeper questions; city_pair for concrete A-to-B times; search_routes for other route categories.',
+      inputSchema: { city: z.string().optional().describe('Optional city filter matched against route endpoints (accent-insensitive), e.g. "Vienna".') },
+      annotations: RO,
     },
     async ({ city }) => {
       let routes = DATA.routes.filter((r) => r.category === 'night')
@@ -237,13 +316,15 @@ function buildServer() {
     {
       title: 'City-to-city by train',
       description:
-        'Journey facts between two cities (European coverage): typical/fastest duration, direct trains, ' +
-        'transfer count, operators — plus legendary atlas routes on that corridor. Figures are sampled from ' +
-        'public schedule data, not live times.',
+        'Journey facts between two cities (European coverage): fastest and typical duration, whether direct ' +
+        'trains run, fewest changes, operators and the guide URL — plus legendary atlas routes on that corridor. ' +
+        'Direction-insensitive. Figures are sampled from public schedule data, not live times — treat as planning ' +
+        'estimates. An uncovered pair returns an error with a search_routes tip.',
       inputSchema: {
-        from: z.string().describe('Origin city, e.g. "London"'),
-        to: z.string().describe('Destination city, e.g. "Paris"'),
+        from: z.string().describe('Origin city, e.g. "London". City name only, no station needed; accent-insensitive.'),
+        to: z.string().describe('Destination city, e.g. "Paris".'),
       },
+      annotations: RO,
     },
     async ({ from, to }) => {
       const conn = DATA.connections.find(
@@ -286,9 +367,15 @@ function buildServer() {
   server.registerTool(
     'atlas_stats',
     {
-      title: 'About the atlas',
-      description: 'What TrainRouter covers: totals and the main browse pages.',
+      title: 'Atlas coverage stats',
+      description:
+        'One-call snapshot of what the TrainRouter atlas covers: total route count, countries, combined length ' +
+        'in km, the category list, number of city-pair guides, data snapshot date, and direct URLs to the main ' +
+        'browse pages (world map, all routes, Europe/USA maps, night trains, scenic, by-country, city-to-city). ' +
+        'Takes no parameters. Call it to learn what this server can answer, to cite dataset totals, or to link a ' +
+        'browse page — it returns no individual routes; use search_routes or famous_routes for those.',
       inputSchema: {},
+      annotations: RO,
     },
     async () =>
       reply({
@@ -337,7 +424,12 @@ const rpcError = (res, status, code, message) => {
       .end(JSON.stringify({ jsonrpc: '2.0', error: { code, message }, id: null }))
 }
 
-createServer(async (req, res) => {
+if (process.argv.includes('--stdio')) {
+  // Same tools over stdio, for local MCP clients and sandboxed inspection.
+  // stdout is the JSON-RPC channel here — nothing may console.log.
+  const { StdioServerTransport } = await import('@modelcontextprotocol/sdk/server/stdio.js')
+  await buildServer().connect(new StdioServerTransport())
+} else createServer(async (req, res) => {
   // Permissive CORS: read-only public data; lets browser-based MCP clients in.
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader(
@@ -377,6 +469,6 @@ createServer(async (req, res) => {
     console.error(e)
     rpcError(res, 500, -32603, 'internal error')
   }
-}).listen(PORT, '127.0.0.1', () => {
-  console.log(`trainrouter-mcp v${VERSION} on 127.0.0.1:${PORT} — ${DATA.routes.length} routes, data ${DATA.generated}`)
+}).listen(PORT, HOST, () => {
+  console.log(`trainrouter-mcp v${VERSION} on ${HOST}:${PORT} — ${DATA.routes.length} routes, data ${DATA.generated}`)
 })

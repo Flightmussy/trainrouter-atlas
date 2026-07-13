@@ -7,7 +7,7 @@
 High-speed spines (Eurostar, TGV, Shinkansen, AVE), classic long-distance runs (Trans-Siberian, California Zephyr), night trains (Nightjet, the Ghan) and the scenic lines people fly in just to ride (Glacier Express, Bernina Express, the Jacobite).
 
 🗺️ **Explore it interactively:** [trainrouter.com](https://trainrouter.com)
-🤖 **Use it from an AI assistant:** free MCP server at `https://trainrouter.com/mcp` ([how to connect](https://trainrouter.com/mcp-server/))
+🤖 **Use it from an AI assistant:** free MCP server at `https://trainrouter.com/mcp` ([how to connect](https://trainrouter.com/mcp-server/)) — or run it from this repo: `npm install && npm start` ([`mcp/`](mcp/))
 
 ## Files
 
