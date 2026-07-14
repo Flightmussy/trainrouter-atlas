@@ -58,7 +58,8 @@ gdf.plot(column="category", figsize=(16, 8))
 
 ## License & attribution
 
-[**CC BY 4.0**](https://creativecommons.org/licenses/by/4.0/) — free to use, share and adapt, **with attribution to [TrainRouter](https://trainrouter.com)**. A link to `https://trainrouter.com` (or the specific route page in `url`) satisfies attribution.
+- **Data** (`data/`): [**CC BY 4.0**](https://creativecommons.org/licenses/by/4.0/) — free to use, share and adapt, **with attribution to [TrainRouter](https://trainrouter.com)**. A link to `https://trainrouter.com` (or the specific route page in `url`) satisfies attribution. ([full notice](data/LICENSE))
+- **Code** (the MCP server in `mcp/`): [MIT](LICENSE).
 
 ## Also available on
 

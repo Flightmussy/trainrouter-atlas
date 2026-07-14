@@ -10,7 +10,7 @@
   "engines": {
     "node": ">=18"
   },
-  "license": "CC-BY-4.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Flightmussy/trainrouter-atlas.git"
