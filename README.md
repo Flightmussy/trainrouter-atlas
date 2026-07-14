@@ -49,12 +49,14 @@ gdf = gpd.read_file("data/routes.geojson")
 gdf.plot(column="category", figsize=(16, 8))
 ```
 
-## Accuracy & provenance
+## Sources, accuracy & provenance
 
-- Figures are **approximate published values** (operator sites, timetables, press material) — good for exploration and visualization, not operations.
-- Geometry is **hand-traced at map scale** to follow each line's real corridor — it is not survey-grade track alignment.
-- The dataset is curated: it covers the world's *notable* routes, not every railway line on earth.
-- Not included here (they live on the site): per-route stories and sights, photos, and city-to-city journey guides.
+- **No upstream dataset.** This atlas is hand-built — **not** derived from OpenStreetMap, Overpass, Wikidata, Natural Earth or any other licensed dataset — so it carries no third-party licensing obligations and the CC BY 4.0 licence is the author's to grant.
+- **Geometry is hand-traced at map scale:** each route's `LineString` is a set of hand-placed `[lon, lat]` waypoints following the line's real corridor through its stops — deliberately schematic (smoothed for display), not survey-grade alignment, and not extracted from OSM or any geodata source.
+- **Facts are approximate published values:** distance, top speed, journey time, operator, opening year and approximate ridership are compiled from public references (operators' own figures, timetables, press material, encyclopaedic articles). Individual facts like these aren't copyrightable; the licence covers the curated compilation. Good for exploration and visualization, not operations.
+- **Curated, not exhaustive:** the world's *notable* routes, not every line on earth. Route names and the one-line `highlight`s are the author's own wording.
+- **Deliberately excluded** (they live only on the site, to keep provenance clean): per-route stories and sights, photos (Wikimedia Commons, separately licensed), and the city-to-city journey guides (derived from public schedule feeds).
+- **Basemap ≠ data:** the interactive site renders these routes over OpenFreeMap (OpenStreetMap) tiles, but those tiles are **not** part of this dataset — the geometry here is the author's own hand-traced lines. OSM © OpenStreetMap contributors.
 
 ## License & attribution
 
