@@ -1,0 +1,102 @@
+rank,country,iso2,train,route_from,route_to,avg_speed_kmh,top_speed_kmh,international_service
+1,"China",CN,"Jinghu High-Speed","Beijing","Shanghai",307,350,false
+2,"France",FR,"TGV inOui","Paris","Bordeaux",260,320,false
+3,"Spain",ES,"AVE","Madrid","Barcelona",248,300,false
+4,"Japan",JP,"Sanyo Shinkansen","Osaka","Fukuoka",235,300,false
+5,"Taiwan",TW,"THSR","Taipei","Kaohsiung",220,300,false
+6,"United Kingdom",GB,"Eurostar","London","Paris",214,300,true
+7,"Italy",IT,"Frecciarossa","Rome","Naples",193,300,false
+8,"Saudi Arabia",SA,"Haramain High-Speed","Mecca","Medina",193,300,false
+9,"Belgium",BE,"Eurostar","London","Brussels",191,300,true
+10,"Austria",AT,"Koralmbahn","Graz","Klagenfurt",186,250,false
+11,"Russia",RU,"Sapsan","Moscow","St. Petersburg",186,250,false
+12,"South Korea",KR,"KTX","Seoul","Busan",185,305,false
+13,"Hong Kong",HK,"Guangzhou–Hong Kong XRL","Guangzhou","Hong Kong",181,300,true
+14,"Indonesia",ID,"Whoosh","Jakarta","Bandung",181,350,false
+15,"Türkiye",TR,"Yüksek Hızlı Tren (YHT)","Ankara","Konya",175,250,false
+16,"Uzbekistan",UZ,"Afrosiyob","Tashkent","Bukhara",164,250,false
+17,"Germany",DE,"ICE","Hamburg","Berlin",163,230,false
+18,"Switzerland",CH,"TGV Lyria","Paris","Geneva",160,320,true
+19,"Netherlands",NL,"Eurostar (Thalys)","Paris","Amsterdam",153,300,true
+20,"Morocco",MA,"Al Boraq","Tangier","Casablanca",149,320,false
+21,"Sweden",SE,"SJ X2000","Stockholm","Gothenburg",148,200,false
+22,"United Arab Emirates",AE,"Etihad Rail","Abu Dhabi","Fujairah",143,200,false
+23,"Serbia",RS,"Soko","Belgrade","Subotica",138,200,false
+24,"Finland",FI,"InterCity 25","Helsinki","Oulu",128,200,false
+25,"Poland",PL,"Express InterCity Premium","Warsaw","Katowice",128,200,false
+26,"Greece",GR,"Hellenic InterCity","Athens","Thessaloniki",126,200,false
+27,"Denmark",DK,"Lyntog Copenhagen–Aarhus","Copenhagen","Aarhus",125,180,false
+28,"Tanzania",TZ,"Tanzania SGR","Dar es Salaam","Dodoma",124,160,false
+29,"Portugal",PT,"Alfa Pendular","Lisbon","Porto",119,220,false
+30,"Ireland",IE,"InterCity","Dublin","Cork",118,160,false
+31,"Ukraine",UA,"Kyiv–Lviv Intercity+","Kyiv","Lviv",115,160,false
+32,"Czechia",CZ,"SC Pendolino","Prague","Ostrava",114,160,false
+33,"United States",US,"Acela","Boston","Washington, D.C.",110,257,false
+34,"Canada",CA,"VIA Rail Corridor","Toronto","Montreal",110,160,false
+35,"Israel",IL,"Jerusalem High-Speed Link","Tel Aviv","Jerusalem",107,160,false
+36,"Romania",RO,"Bucharest–Constanța InterCity","Bucharest","Constanța",106,160,false
+37,"Hungary",HU,"Railjet","Vienna","Budapest",104,230,true
+38,"Bulgaria",BG,"BDŽ Fast Train Plovdiv","Sofia","Plovdiv",104,130,false
+39,"Belarus",BY,"Minsk–Brest Business Class","Minsk","Brest",104,140,false
+40,"Laos",LA,"Laos–China Railway","Kunming","Vientiane",104,160,true
+41,"Norway",NO,"Oslo–Göteborg","Oslo","Gothenburg",100,200,true
+42,"Australia",AU,"The Prospector","Perth","Kalgoorlie",97,160,false
+43,"Estonia",EE,"Elron","Tallinn","Tartu",97,120,false
+44,"Malaysia",MY,"KTM ETS","Kuala Lumpur","Butterworth",95,140,false
+45,"India",IN,"Vande Bharat Express","New Delhi","Varanasi",95,130,false
+46,"Kenya",KE,"Madaraka Express","Nairobi","Mombasa",94,120,false
+47,"Lithuania",LT,"LTG Link","Vilnius","Kaunas",94,160,false
+48,"Slovakia",SK,"ZSSK InterCity","Bratislava","Košice",92,160,false
+49,"Azerbaijan",AZ,"Baku–Ganja Express","Baku","Ganja",91,160,false
+50,"Chile",CL,"Tren Santiago–Chillán","Santiago","Chillán",90,160,false
+51,"Latvia",LV,"LTG Link","Vilnius","Riga",85,120,true
+52,"Slovenia",SI,"InterCity Slovenija","Ljubljana","Maribor",84,160,false
+53,"Egypt",EG,"Talgo Intercity","Cairo","Alexandria",83,160,false
+54,"Mexico",MX,"Tren Maya","Cancún","Palenque",82,160,false
+55,"Nigeria",NG,"Warri–Itakpe Train","Warri","Itakpe",82,100,false
+56,"Venezuela",VE,"Ferrocarril Ezequiel Zamora","Caracas","Cúa",79,120,false
+57,"Panama",PA,"Panama Canal Railway","Panama City","Colón",77,88,false
+58,"Algeria",DZ,"Algiers–Oran Express","Algiers","Oran",77,160,false
+59,"Georgia",GE,"Tbilisi–Batumi Intercity","Tbilisi","Batumi",76,120,false
+60,"South Africa",ZA,"Gautrain","Johannesburg","Pretoria",75,160,false
+61,"Luxembourg",LU,"Intercity","Brussels","Luxembourg",71,160,true
+62,"Iran",IR,"Raja Tehran–Isfahan","Tehran","Isfahan",69,160,false
+63,"Montenegro",ME,"Podgorica–Nikšić line","Podgorica","Nikšić",67,100,false
+64,"Argentina",AR,"Tren a Mar del Plata","Buenos Aires","Mar del Plata",67,120,false
+65,"Croatia",HR,"Zagreb–Rijeka line","Zagreb","Rijeka",65,140,false
+66,"Bangladesh",BD,"Sonar Bangla Express","Dhaka","Chattogram",65,100,false
+67,"Kazakhstan",KZ,"Tulpar-Talgo","Almaty","Shymkent",64,160,false
+68,"Pakistan",PK,"Subak Raftar","Lahore","Rawalpindi",63,105,false
+69,"Djibouti",DJ,"Addis–Djibouti Railway","Addis Ababa","Djibouti",63,120,true
+70,"Ethiopia",ET,"Addis–Djibouti Railway","Addis Ababa","Djibouti",63,120,true
+71,"Myanmar",MM,"Yangon–Mandalay Express","Yangon","Mandalay",62,100,false
+72,"North Macedonia",MK,"Skopje–Bitola line","Skopje","Bitola",61,100,false
+73,"New Zealand",NZ,"Capital Connection","Palmerston North","Wellington",60,100,false
+74,"Uruguay",UY,"AFE Tacuarembó–Rivera","Tacuarembó","Rivera",60,90,false
+75,"Tunisia",TN,"SNCFT Grandes Lignes","Tunis","Sfax",60,120,false
+76,"Sri Lanka",LK,"Yal Devi","Colombo","Jaffna",60,120,false
+77,"Cuba",CU,"Tren Francés","Havana","Santiago de Cuba",57,100,false
+78,"Brazil",BR,"Estrada de Ferro Carajás","São Luís","Parauapebas",56,80,false
+79,"Thailand",TH,"Eastern Line","Bangkok","Aranyaprathet",49,100,false
+80,"Turkmenistan",TM,"Trans-Caspian Express","Ashgabat","Turkmenbashi",48,100,false
+81,"Senegal",SN,"Dakar TER","Dakar","Diamniadio",48,160,false
+82,"Bosnia and Herzegovina",BA,"Talgo Sarajevo–Banja Luka","Sarajevo","Banja Luka",47,120,false
+83,"Cambodia",KH,"Royal Railway Southern Line","Phnom Penh","Sihanoukville",47,60,false
+84,"Gabon",GA,"Transgabonais","Libreville","Franceville",46,80,false
+85,"DR Congo",CD,"Matadi–Kinshasa","Matadi","Kinshasa",46,60,false
+86,"Burkina Faso",BF,"Sitarail Voyageurs","Ouagadougou","Bobo-Dioulasso",43,70,false
+87,"Vietnam",VN,"Hai Phong Line","Hanoi","Hai Phong",42,60,false
+88,"Bolivia",BO,"Tren de la Muerte","Santa Cruz","Puerto Quijarro",41,60,false
+89,"Zambia",ZM,"TAZARA","Dar es Salaam","Kapiri Mposhi",40,100,true
+90,"Kosovo",XK,"Pristina–Peja line","Pristina","Peja",40,80,false
+91,"Sudan",SD,"Port Sudan–Atbara","Port Sudan","Atbara",40,60,false
+92,"Mauritania",MR,"Mauritania Iron Ore Train","Nouadhibou","Zouérat",39,60,false
+93,"Tajikistan",TJ,"Dushanbe–Kulob Express","Dushanbe","Kulob",39,80,false
+94,"Angola",AO,"Luanda–Malanje Express","Luanda","Malanje",39,90,false
+95,"Moldova",MD,"Chișinău–Iași Cross-Border","Chișinău","Iași",37,80,true
+96,"Philippines",PH,"PNR Commuter","Calamba","Lucena",35,60,false
+97,"Ghana",GH,"Accra–Tema Shuttle","Accra","Tema",32,80,false
+98,"Republic of the Congo",CG,"La Gazelle","Brazzaville","Pointe-Noire",32,70,false
+99,"Mozambique",MZ,"Nampula–Cuamba","Nampula","Cuamba",29,60,false
+100,"Nepal",NP,"Janakpur Railway","Jaynagar","Bijalpura",26,80,true
+101,"Uganda",UG,"Kampala–Mukono commuter","Kampala","Mukono",23,60,false
