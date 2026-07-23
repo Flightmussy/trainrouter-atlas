@@ -382,7 +382,12 @@ function buildServer() {
         about: `${DATA.site.name} — ${DATA.site.tagline}`,
         routes: DATA.stats.routes,
         countries: DATA.stats.countries,
-        totalKm: DATA.stats.totalKm,
+        // Sum of every route's length — corridors shared by several routes
+        // count once PER ROUTE here; see lineKm for the physical network.
+        totalRouteKm: DATA.stats.totalKm,
+        // Deduplicated km of physical line (shared corridors counted once).
+        // Absent in the open-dataset fallback build, which has no geometry.
+        ...(DATA.stats.lineKm ? { lineKm: DATA.stats.lineKm } : {}),
         categories: DATA.categories,
         cityPairGuides: DATA.connections.length,
         browse: {
@@ -392,6 +397,7 @@ function buildServer() {
           usa: `${DATA.site.url}/usa-train-map/`,
           nightTrains: `${DATA.site.url}/night-trains/`,
           scenic: `${DATA.site.url}/scenic-train-routes/`,
+          luxury: `${DATA.site.url}/luxury-train-routes/`,
           byCountry: `${DATA.site.url}/train-routes/`,
           cityToCity: `${DATA.site.url}/trains/`,
         },

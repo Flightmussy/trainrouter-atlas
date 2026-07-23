@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21322030.svg)](https://doi.org/10.5281/zenodo.21322030)
 
-**744 train routes · 118 countries · ≈ 366,500 km of line** — every route with its key facts and hand-traced geometry, from [trainrouter.com](https://trainrouter.com), the interactive world railway map.
+**961 train routes · 118 countries · ≈ 432,800 km of route** — every route with its key facts and hand-traced geometry, from [trainrouter.com](https://trainrouter.com), the interactive world railway map.
 
 High-speed spines (Eurostar, TGV, Shinkansen, AVE), classic long-distance runs (Trans-Siberian, California Zephyr), night trains (Nightjet, the Ghan) and the scenic lines people fly in just to ride (Glacier Express, Bernina Express, the Jacobite).
 
