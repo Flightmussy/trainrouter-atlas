@@ -51,16 +51,17 @@ gdf.plot(column="category", figsize=(16, 8))
 
 ## Sources, accuracy & provenance
 
-- **No upstream dataset.** This atlas is hand-built — **not** derived from OpenStreetMap, Overpass, Wikidata, Natural Earth or any other licensed dataset — so it carries no third-party licensing obligations and the CC BY 4.0 licence is the author's to grant.
-- **Geometry is hand-traced at map scale:** each route's `LineString` is a set of hand-placed `[lon, lat]` waypoints following the line's real corridor through its stops — deliberately schematic (smoothed for display), not survey-grade alignment, and not extracted from OSM or any geodata source.
+- **Provenance changed in late July 2026 — this section was updated 2026-07-31 to say so.** The atlas started fully hand-built, and the **facts** still are: compiled from public references, not from any licensed dataset, so the CC BY 4.0 licence on the facts is the author's to grant.
+- **Geometry: hand-traced originally, OSM-traced increasingly.** Each route's `LineString` began as hand-placed `[lon, lat]` waypoints following the corridor at map scale. From 23 July 2026 onward, alignments have progressively been re-traced from **OpenStreetMap railway ways via Overpass** so the lines sit on real track. The files currently in `data/` are the 23 July refresh: nearly all of their geometry is still the hand-traced kind, but a handful of corridors (Brenner, Oslo–Göteborg, Oslo–Stockholm, Pustertalbahn) are already OSM-traced, and those lines are **© OpenStreetMap contributors, ODbL** — as any OSM-derived geometry must be. An earlier version of this README said the geometry was "not extracted from OSM or any geodata source"; that was true when written (v1.0, 12 July) and is no longer true, which is why this notice exists. The next release will mark the split per route: facts CC BY 4.0, geometry ODbL.
 - **Facts are approximate published values:** distance, top speed, journey time, operator, opening year and approximate ridership are compiled from public references (operators' own figures, timetables, press material, encyclopaedic articles). Individual facts like these aren't copyrightable; the licence covers the curated compilation. Good for exploration and visualization, not operations.
 - **Curated, not exhaustive:** the world's *notable* routes, not every line on earth. Route names and the one-line `highlight`s are the author's own wording.
 - **Deliberately excluded** (they live only on the site, to keep provenance clean): per-route stories and sights, photos (Wikimedia Commons, separately licensed), and the city-to-city journey guides (derived from public schedule feeds).
-- **Basemap ≠ data:** the interactive site renders these routes over OpenFreeMap (OpenStreetMap) tiles, but those tiles are **not** part of this dataset — the geometry here is the author's own hand-traced lines. OSM © OpenStreetMap contributors.
+- **Basemap ≠ data:** the interactive site renders these routes over OpenFreeMap (OpenStreetMap) tiles; those tiles are **not** part of this dataset. OSM © OpenStreetMap contributors — which, per the provenance note above, now also covers the OSM-traced route lines themselves.
 
 ## License & attribution
 
-- **Data** (`data/`): [**CC BY 4.0**](https://creativecommons.org/licenses/by/4.0/) — free to use, share and adapt, **with attribution to [TrainRouter](https://trainrouter.com)**. A link to `https://trainrouter.com` (or the specific route page in `url`) satisfies attribution. ([full notice](data/LICENSE))
+- **Facts** (every non-geometry field in `data/`): [**CC BY 4.0**](https://creativecommons.org/licenses/by/4.0/) — free to use, share and adapt, **with attribution to [TrainRouter](https://trainrouter.com)**. A link to `https://trainrouter.com` (or the specific route page in `url`) satisfies attribution. ([full notice](data/LICENSE))
+- **Geometry** (`LineString` coordinates): hand-traced lines as above (CC BY 4.0); **OSM-traced lines © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/)**. If you reuse the geometry wholesale, treat it as ODbL and credit OpenStreetMap — the safe default, made explicit per route in the next release.
 - **Code** (the MCP server in `mcp/`): [MIT](LICENSE).
 
 ## Also available on
