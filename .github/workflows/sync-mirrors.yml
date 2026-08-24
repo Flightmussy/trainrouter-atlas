@@ -9,6 +9,14 @@
 #                      (the new KGAT_… tokens; identity is embedded, no username)
 #   HF_TOKEN           from huggingface.co/settings/tokens (write scope)
 # Each job skips itself politely when its secret is missing.
+#
+# The two mirrors are NOT symmetrical: Hugging Face gets all three files,
+# Kaggle gets the two fact files only. See the comment in the kaggle job.
+#
+# NOTE: until 2026-08-24 the kaggle job carried the id
+# 'albanius/world-train-routes-trainrouter-atlas'. No such Kaggle account
+# exists, so this job could never have created the dataset it claimed to
+# mirror, and the README advertised that dead link for six weeks.
 
 name: Sync mirrors
 
@@ -31,11 +39,17 @@ jobs:
         run: |
           if [ -z "$KAGGLE_API_TOKEN" ]; then echo "No KAGGLE_API_TOKEN secret — skipping Kaggle sync."; exit 0; fi
           pip -q install 'kaggle>=1.8'
-          mkdir -p ds && cp data/routes.csv data/routes.json data/routes.geojson ds/
+          # Facts only. routes.geojson is deliberately NOT mirrored here:
+          # some of its lines are traced from OpenStreetMap and are therefore
+          # ODbL, and Kaggle allows a dataset only ONE licence label, so
+          # shipping the geometry under CC-BY-4.0 would misstate it. The
+          # geometry lives on GitHub, where the split licence can be spelled
+          # out. routes.csv and routes.json carry no geometry at all.
+          mkdir -p ds && cp data/routes.csv data/routes.json ds/
           cat > ds/dataset-metadata.json <<'META'
           {
-            "id": "albanius/world-train-routes-trainrouter-atlas",
-            "title": "World Train Routes — TrainRouter Atlas",
+            "id": "flightmussy/world-train-routes",
+            "title": "World Train Routes (World Train Map Atlas)",
             "licenses": [{ "name": "CC-BY-4.0" }]
           }
           META
