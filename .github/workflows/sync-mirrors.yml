@@ -49,7 +49,7 @@ jobs:
           cat > ds/dataset-metadata.json <<'META'
           {
             "id": "flightmussy/world-train-routes",
-            "title": "World Train Routes (World Train Map Atlas)",
+            "title": "World Train Routes",
             "licenses": [{ "name": "CC-BY-4.0" }]
           }
           META
