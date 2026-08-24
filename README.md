@@ -19,8 +19,8 @@ Several different route counts are in circulation for this atlas, so here is the
 |---|---|---|---|
 | The live site | 1,338 | today | [worldtrainmap.com](https://worldtrainmap.com), always the newest |
 | The MCP server | 1,247 | 11 August 2026 | deployed separately from the site, so it lags it a little |
-| `data/` in this repo | 961 | 23 July 2026 | what you get by cloning or downloading here |
-| Zenodo (the citable DOI) and Hugging Face | 744 | 12 July 2026 | release v1.1.0, the last tagged one |
+| `data/` in this repo, and Hugging Face | 961 | 23 July 2026 | what you get by cloning or downloading here |
+| Zenodo (the citable DOI) | 744 | 12 July 2026 | release v1.1.0, the last tagged one |
 
 **Why the download is behind the site, and it is deliberate.** Since late July the route geometry has been progressively re-traced from OpenStreetMap railway relations, which makes it a derivative of OSM data under ODbL, while this package is licensed CC BY 4.0 throughout. Publishing a refresh before the licence is split per route would ship a licence violation with our name on it, so the exporter is blocked until that work lands. See *Sources, accuracy & provenance* below. If you want something fresher than the July cut without waiting, the MCP server is the closest available.
 
@@ -81,10 +81,11 @@ gdf.plot(column="category", figsize=(16, 8))
 
 ## Also available on
 
-- **Hugging Face:** [huggingface.co/datasets/Flightmussy/trainrouter-atlas](https://huggingface.co/datasets/Flightmussy/trainrouter-atlas), currently the v1.1.0 cut (744 routes)
+- **Hugging Face:** [huggingface.co/datasets/Flightmussy/trainrouter-atlas](https://huggingface.co/datasets/Flightmussy/trainrouter-atlas), kept byte for byte in step with `data/` here
+- **Kaggle:** [kaggle.com/datasets/flightmussy/world-train-routes](https://www.kaggle.com/datasets/flightmussy/world-train-routes), the two fact files only, because Kaggle allows a dataset one licence label and the geometry is part ODbL
 - **Zenodo (archived, DOI):** [doi.org/10.5281/zenodo.21322030](https://doi.org/10.5281/zenodo.21322030), the concept DOI, which always resolves to the latest published release (today, v1.1.0)
 
-There is no Kaggle mirror. Earlier versions of this README linked one at `kaggle.com/datasets/albanius/...`; that account name does not exist, so the link was dead from the day it was written. It is removed here rather than repeated.
+The Kaggle mirror is new, and it is worth saying why it did not exist before: every earlier version of this README, and the site's own dataset page, linked one at `kaggle.com/datasets/albanius/...`. That account name has never been ours, and the same wrong id was hard-coded into the mirror-sync workflow, so the link was dead from the day it was written and the automation could not have fixed it. Both are corrected.
 
 ## Citing
 
