@@ -1,0 +1,27 @@
+{
+  "title": "World Train Map Atlas: the world's legendary train routes",
+  "upload_type": "dataset",
+  "creators": [
+    { "name": "Flightmussy" }
+  ],
+  "description": "<p>The world's notable passenger train routes as open data, from <a href=\"https://worldtrainmap.com\">World Train Map</a>: one record per route with its termini, category, operator, rolling stock, length, top speed, published journey time, opening year, the countries it crosses in travel order, a one-line description and a renown rank, plus its line.</p><p><b>Two licences.</b> The facts, data/routes.csv and data/routes.json, are CC BY 4.0: credit World Train Map. The route lines, data/routes.geojson, are derived from OpenStreetMap and are offered under the Open Database License 1.0, © OpenStreetMap contributors; the facts repeated in that file are offered under the ODbL there as well. The MCP server code in mcp/ is MIT. Zenodo allows one licence label per record, so this record is labelled ODbL, which covers the whole archive; the fact files inside it are also available under CC BY 4.0. See data/LICENSE.</p>",
+  "license": "odbl-1.0",
+  "access_right": "open",
+  "keywords": [
+    "railways",
+    "trains",
+    "train routes",
+    "rail transport",
+    "GeoJSON",
+    "OpenStreetMap",
+    "open data",
+    "travel"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://worldtrainmap.com",
+      "scheme": "url"
+    }
+  ]
+}

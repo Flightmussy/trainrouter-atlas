@@ -1,31 +1,40 @@
-TrainRouter Atlas dataset
-Copyright (c) 2026 TrainRouter (trainrouter.com)
+World Train Map Atlas: data licences
+https://github.com/Flightmussy/trainrouter-atlas
 
-This work is licensed under the Creative Commons Attribution 4.0
-International License (CC BY 4.0).
+This folder holds the same routes in two forms, under two licences.
 
-You are free to:
-  Share — copy and redistribute the material in any medium or format
-  Adapt — remix, transform, and build upon the material
-  for any purpose, even commercially.
+1. routes.csv and routes.json: the route facts
 
-Under the following terms:
-  Attribution — You must give appropriate credit to TrainRouter
-  (https://trainrouter.com), provide a link to the license, and indicate
-  if changes were made.
+   Licence: Creative Commons Attribution 4.0 International (CC BY 4.0)
+   https://creativecommons.org/licenses/by/4.0/
+   Credit: World Train Map (https://worldtrainmap.com). A link to
+   https://worldtrainmap.com, or to the route's page in the url column,
+   satisfies it.
 
-Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
+   These files carry no geometry. The facts are compiled from operators'
+   own figures, timetables, press material and encyclopaedic articles. A
+   few distance and top speed figures were measured on OpenStreetMap track
+   instead of taken from a published source; they are a small, insubstantial
+   extract of the OpenStreetMap database, © OpenStreetMap contributors.
 
---------------------------------------------------------------------------
-GEOMETRY NOTICE (added 2026-07-31)
+2. routes.geojson: the route lines
 
-The CC BY 4.0 licence above covers the facts and the hand-traced geometry.
-Route geometry traced from OpenStreetMap (progressively, from 23 July 2026;
-in this release: Brenner, Oslo-Goteborg, Oslo-Stockholm, Pustertalbahn) is
-a derivative of OpenStreetMap data and is therefore
-(c) OpenStreetMap contributors, licensed under the Open Database License
-(ODbL) 1.0: https://opendatacommons.org/licenses/odbl/1-0/
-OSM copyright and attribution: https://www.openstreetmap.org/copyright
+   Licence: Open Data Commons Open Database License 1.0 (ODbL 1.0)
+   https://opendatacommons.org/licenses/odbl/1-0/
+   Credit: © OpenStreetMap contributors
+   https://www.openstreetmap.org/copyright
 
-If you reuse the geometry wholesale, the safe and correct default is to
-treat it as ODbL and credit OpenStreetMap contributors.
+   The lines are derived from OpenStreetMap. Most are drawn node for node
+   from OSM route relations (geometry_source "osm_relation", the relation
+   ids in osm_relations), some are snapped onto the OSM rail graph by map
+   matching (geometry_source "osm_map_matched"), and the rest have no
+   record of their origin and are treated as derived all the same. The
+   whole file is therefore offered under the ODbL, including the facts
+   repeated in its properties, which stay available under CC BY 4.0 in
+   routes.csv and routes.json.
+
+   If you publicly use a database derived from routes.geojson, offer that
+   database under the ODbL as well. A map or image made from it needs the
+   credit "© OpenStreetMap contributors".
+
+The MCP server code in ../mcp is MIT licensed (see ../LICENSE).
