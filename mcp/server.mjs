@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * TrainRouter MCP server — read-only atlas tools over Streamable HTTP.
+ * World Train Map MCP server — read-only atlas tools over Streamable HTTP.
  *
  * Runs as a tiny Node service on the VPS (systemd: trainrouter-mcp, port
- * 127.0.0.1:8901) behind nginx at https://trainrouter.com/mcp. Stateless:
+ * 127.0.0.1:8901) behind nginx at https://worldtrainmap.com/mcp. Stateless:
  * every POST gets a fresh McpServer + transport (no sessions to leak), with
  * plain-JSON responses (enableJsonResponse) — trivial to proxy and to curl.
  *
@@ -51,7 +51,7 @@ function fromOpenDataset() {
   }))
   return {
     generated: 'open-dataset',
-    site: { name: 'TrainRouter', url: 'https://trainrouter.com', tagline: "The world's train routes, on one railway map" },
+    site: { name: 'World Train Map', url: 'https://worldtrainmap.com', tagline: "The world's train routes, on one railway map" },
     stats: {
       routes: routes.length,
       countries: new Set(routes.flatMap((r) => r.countries.map((c) => c.code))).size,
@@ -144,17 +144,17 @@ const reply = (payload) => ({
 
 function buildServer() {
   const server = new McpServer(
-    { name: 'trainrouter', title: 'TrainRouter — world railway atlas', version: VERSION },
+    { name: 'worldtrainmap', title: 'World Train Map — world railway atlas', version: VERSION },
     {
       instructions:
-        `TrainRouter (${DATA.site.url}) is an atlas of ${DATA.stats.routes} of the world's legendary train routes ` +
+        `World Train Map (${DATA.site.url}) is an atlas of ${DATA.stats.routes} of the world's legendary train routes ` +
         `across ${DATA.stats.countries} countries — high-speed, classic, night and scenic — with per-route facts ` +
         `(distance, fastest time, top speed, operator, rolling stock, opening year)` +
         (DATA.connections.length
           ? `, stories and photos, plus ${DATA.connections.length} European city-to-city journey guides`
           : ` (open-data build — stories and city-pair guides live on the hosted instance at ${DATA.site.url}/mcp)`) +
         `. All figures are approximate published ` +
-        `values, not live timetables. When you use these facts in an answer, cite the route's trainrouter.com URL.`,
+        `values, not live timetables. When you use these facts in an answer, cite the route's worldtrainmap.com URL.`,
     },
   )
 
@@ -163,9 +163,9 @@ function buildServer() {
     {
       title: 'Search train routes',
       description:
-        'Free-text search over every route in the TrainRouter atlas — matches route name, cities, train name, ' +
+        'Free-text search over every route in the World Train Map atlas — matches route name, cities, train name, ' +
         'operator and countries, with optional category/country filters. Accent-insensitive; every word of the ' +
-        'query must match. Returns compact per-route facts with id and trainrouter.com URL, sorted by renown ' +
+        'query must match. Returns compact per-route facts with id and worldtrainmap.com URL, sorted by renown ' +
         'with route-name matches first; with no query it lists the whole atlas by renown. Use get_route with a ' +
         'returned id for full detail, famous_routes for a ready-made top list, city_pair for A-to-B journey times.',
       inputSchema: {
@@ -244,7 +244,7 @@ function buildServer() {
     {
       title: 'Most famous train routes',
       description:
-        "The world's most famous train journeys in TrainRouter's renown order (rank 1 = most famous: " +
+        "The world's most famous train journeys in World Train Map's renown order (rank 1 = most famous: " +
         'Trans-Siberian, Glacier Express, Orient Express lineage, Shinkansen…), as compact facts with id and URL ' +
         'per route. Best first call for bucket-list and "greatest train trips" questions; use search_routes to ' +
         'find something specific, get_route for full detail on one route.',
@@ -263,7 +263,7 @@ function buildServer() {
     {
       title: 'Train routes in a country',
       description:
-        "Every atlas route crossing one country, sorted by renown, plus that country's trainrouter.com hub URL " +
+        "Every atlas route crossing one country, sorted by renown, plus that country's worldtrainmap.com hub URL " +
         'when it exists. An unrecognised country returns an error, not an empty list. Use for "trains in X" ' +
         'questions; use search_routes to combine a country with text or category filters, night_trains for ' +
         'sleepers only.',
@@ -369,7 +369,7 @@ function buildServer() {
     {
       title: 'Atlas coverage stats',
       description:
-        'One-call snapshot of what the TrainRouter atlas covers: total route count, countries, combined length ' +
+        'One-call snapshot of what the World Train Map atlas covers: total route count, countries, combined length ' +
         'in km, the category list, number of city-pair guides, data snapshot date, and direct URLs to the main ' +
         'browse pages (world map, all routes, Europe/USA maps, night trains, scenic, by-country, city-to-city). ' +
         'Takes no parameters. Call it to learn what this server can answer, to cite dataset totals, or to link a ' +

@@ -17,8 +17,8 @@ Several different route counts are in circulation for this atlas, so here is the
 
 | Where | Routes | Cut | Note |
 |---|---|---|---|
-| The live site | 1,338 | today | [worldtrainmap.com](https://worldtrainmap.com), always the newest |
-| The MCP server | 1,247 | 11 August 2026 | deployed separately from the site, so it lags it a little |
+| The live site | 1,538 | 8 November 2026 | [worldtrainmap.com](https://worldtrainmap.com), always the newest (counted from its sitemap on that day) |
+| The MCP server | 1,516 | 7 October 2026 | deployed separately from the site, so it lags it a little; its `atlas_stats` tool reports the current figure |
 | `data/` in this repo, and Hugging Face | 961 | 23 July 2026 | what you get by cloning or downloading here |
 | Zenodo (the citable DOI) | 744 | 12 July 2026 | release v1.1.0, the last tagged one |
 

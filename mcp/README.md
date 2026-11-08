@@ -1,18 +1,20 @@
-# TrainRouter MCP server
+# World Train Map MCP server
 
 The atlas as tools for AI assistants — search routes, pull route facts, list night trains, check city-to-city journey times.
 
 **You don't need to run this.** A free hosted instance is live:
 
 ```
-https://trainrouter.com/mcp
+https://worldtrainmap.com/mcp
 ```
 
-- **Claude (claude.ai):** Settings → Connectors → *Add custom connector* → paste the URL
-- **Claude Code:** `claude mcp add --transport http trainrouter https://trainrouter.com/mcp`
-- **Any MCP client:** `{ "mcpServers": { "trainrouter": { "type": "http", "url": "https://trainrouter.com/mcp" } } }`
+The site was TrainRouter until 11 August 2026; `https://trainrouter.com/mcp`, the address in the registry, keeps answering directly (JSON-RPC clients do not follow redirects), so nothing configured earlier has broken.
 
-Registry entry: [`com.trainrouter/atlas`](https://registry.modelcontextprotocol.io/v0/servers?search=trainrouter) · Details: [trainrouter.com/mcp-server](https://trainrouter.com/mcp-server/)
+- **Claude (claude.ai):** Settings → Connectors → *Add custom connector* → paste the URL
+- **Claude Code:** `claude mcp add --transport http worldtrainmap https://worldtrainmap.com/mcp`
+- **Any MCP client:** `{ "mcpServers": { "worldtrainmap": { "type": "http", "url": "https://worldtrainmap.com/mcp" } } }`
+
+Registry entry: [`com.trainrouter/atlas`](https://registry.modelcontextprotocol.io/v0/servers?search=trainrouter) · Details: [worldtrainmap.com/mcp-server](https://worldtrainmap.com/mcp-server/)
 
 ## Run it yourself
 
